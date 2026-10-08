@@ -305,3 +305,28 @@ def linear_model(params: RigParams | None = None, base_us: float = 1350.0):
 
 def with_changes(params: RigParams | None = None, **changes) -> RigParams:
     return replace(params or RigParams(), **changes)
+
+
+# ----------------------------------------------------------------- arming rules
+# The same numbers as arduino/common/rig_safety.h (tests/test_sketches.py checks this).
+POT_MIN_VALID = 10
+POT_MAX_VALID = 1013
+ARM_MAX_ANGLE_DEG = 20.0
+ARM_MIN_BOOT_MS = 3000
+TRIP_ANGLE_DEG = 28.0
+TRIP_TIME_MS = 300
+US_IDLE = 1100
+US_CAP = 1600
+
+
+def arming_allowed(
+    switch_on: bool, switch_was_off: bool, pot_counts: int, angle_deg: float, ms_since_boot: int
+) -> bool:
+    """Reference version of the sketch's ``armingAllowed`` (notebook exercise 3.6)."""
+    return (
+        bool(switch_on)
+        and bool(switch_was_off)
+        and POT_MIN_VALID <= pot_counts <= POT_MAX_VALID
+        and abs(angle_deg) <= ARM_MAX_ANGLE_DEG
+        and ms_since_boot >= ARM_MIN_BOOT_MS
+    )
