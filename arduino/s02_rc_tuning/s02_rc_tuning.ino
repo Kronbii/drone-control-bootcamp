@@ -14,7 +14,7 @@
 //   lim 0 5                       output limits (V); e.g. "lim 0 3" to force saturation
 //   ramp 0.05 | ramp off          setpoint ramp: max change per sample (V)
 //   ts 10                         sample period (ms)
-//   tune 2.0 0.01                 relay autotune: relay amplitude 2 V, noise band 0.01 V
+//   tune 2.0 0.005                relay autotune: relay amplitude 2 V, noise band 5 mV
 //   rule zn|tl|pe|no              apply a tuning rule from the last autotune
 //   tap 0|1|2  ?                  measurement node, print settings
 // Output: t_ms,sp,y,u,p,i,d,mode    (mode 0 pid, 1 open, 2 relay)
@@ -43,7 +43,7 @@ unsigned long stepAt = 0, stepEnd = 0;
 
 // two-pass relay autotune (pass 1 lets the limit cycle settle, pass 2 measures it)
 uint8_t tunePass = 0;
-float relayAmp = 2.0f, noiseBand = 0.01f;
+float relayAmp = 2.0f, noiseBand = 0.005f;
 
 PIDController pid(kp, ki, kd, outLo, outHi);
 PIDTuner tuner(pid);

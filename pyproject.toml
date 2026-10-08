@@ -48,6 +48,7 @@ select = ["E", "F", "W", "I", "B", "UP", "NPY"]
 ignore = ["E741", "B905"]
 
 [tool.ruff.lint.per-file-ignores]
-# Notebook sources: imports appear where they are first needed in the lesson, and
+# Notebook sources: imports appear where they are first needed in the lesson, markdown
+# cells (comments) carry long equations and tables, and
 # PIDController methods keep easyPID's camelCase names on purpose.
-"notebooks/src/*.py" = ["E402", "B018"]
+"notebooks/src/*.py" = ["E402", "B018", "E501"]

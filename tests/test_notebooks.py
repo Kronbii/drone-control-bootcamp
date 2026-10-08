@@ -55,7 +55,7 @@ def test_student_version_has_no_solutions(src):
 def _execute(nb: dict, allow_errors: bool):
     nbformat = pytest.importorskip("nbformat")
     nbclient = pytest.importorskip("nbclient")
-    node = nbformat.from_dict(nb)
+    node = nbformat.reads(build_notebooks.dumps(nb), as_version=4)
     env_backup = os.environ.get("MPLBACKEND")
     os.environ["MPLBACKEND"] = "Agg"
     try:
