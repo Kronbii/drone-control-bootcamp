@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+build/
+dist/
+# arduino-cli build output
+arduino/**/build/
+# student work and local logs
+logs/
+*.local.csv
+.DS_Store

@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "drone-control-bootcamp"
+version = "0.1.0"
+description = "Teaching code for a drone-control bootcamp: PID, attitude and fault tolerance with easyPID and rotorfault"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Rami Kronbi" }]
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.24", "scipy>=1.10", "matplotlib>=3.7"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Education",
+    "Topic :: Scientific/Engineering",
+]
+
+[project.optional-dependencies]
+# Jupyter for students; nbclient/nbformat are what the test-suite uses to run notebooks.
+notebooks = ["jupyterlab>=4", "ipykernel>=6"]
+serial = ["pyserial>=3.5"]
+dev = ["pytest>=7", "ruff>=0.4", "nbformat>=5.9", "nbclient>=0.9", "ipykernel>=6"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bootcamp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = [
+    "notebooks: executes Jupyter notebooks (slow)",
+    "cpp: compiles the easyPID C++ sources on the host",
+    "arduino: compiles sketches with arduino-cli",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests", "tools", "notebooks/src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "NPY"]
+# E741: l is the conventional name for an arm length in the equations we teach.
+# B905: zip() without strict= is fine for equal-length arrays built a line above.
+ignore = ["E741", "B905"]
+
+[tool.ruff.lint.per-file-ignores]
+# Notebook sources: imports appear where they are first needed in the lesson, and
+# PIDController methods keep easyPID's camelCase names on purpose.
+"notebooks/src/*.py" = ["E402", "B018"]
