@@ -1,0 +1,16 @@
+# Lab 3 thrust curve: fill in the scale reading (grams) at each ESC pulse.
+# Beam level, motor-2 end resting on the tared scale, only motor 1 spinning
+# (s03_esc_bench, command 'sweep 1'). Read the scale ~3 s after each '# STEP' line.
+# Team:            Date:            Supply voltage (V):        Prop:
+us,grams
+1100,
+1150,
+1200,
+1250,
+1300,
+1350,
+1400,
+1450,
+1500,
+1550,
+1600,

@@ -120,9 +120,13 @@ def simulate_rig_test(
 
     ``controller(t, sp, measurements, dt) -> u_us`` as for :func:`bootcamp.rig.simulate_rig`.
     The fault is applied like the sketch does it: motor 2's throttle above idle is
-    scaled by :data:`FAULT_ETA`.
+    scaled by :data:`FAULT_ETA`. By default the gyro has only a small residual bias,
+    because the sketch measures and removes the bias at boot.
     """
-    from .rig import mix, simulate_rig
+    from .rig import SensorModel, mix, simulate_rig
+
+    if sensors is None:
+        sensors = SensorModel(gyro_bias_dps=0.2)
 
     def ctrl(t, sp, m, dt_):
         return controller(t, sp, m, dt_) + rig_test_disturbance_us(t)
