@@ -37,7 +37,7 @@ def use_style() -> None:
             "axes.edgecolor": HAIR,
             "axes.labelcolor": INK_2,
             "axes.titlecolor": INK,
-            "axes.titleweight": "semibold",
+            "axes.titleweight": "bold",
             "axes.titlesize": 11,
             "axes.labelsize": 9.5,
             "axes.prop_cycle": mpl.cycler(color=SERIES),
