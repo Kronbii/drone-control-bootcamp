@@ -45,17 +45,28 @@ def test_every_quiz_has_an_answer_section():
         assert f"## Quiz {i}" in keys
 
 
+def _slugs(md: Path) -> set[str]:
+    """GitHub-style anchors of the headings in a Markdown file."""
+    out = set()
+    text = re.sub(r"```.*?```", "", md.read_text(encoding="utf-8"), flags=re.S)
+    for h in re.findall(r"^#{1,6}\s+(.+?)\s*$", text, flags=re.M):
+        slug = re.sub(r"[^\w\- ]", "", h.strip().lower()).replace(" ", "-")
+        out.add(slug)
+    return out
+
+
 @pytest.mark.parametrize("md", MD_FILES, ids=[str(p.relative_to(ROOT)) for p in MD_FILES])
 def test_relative_links_resolve(md):
     text = md.read_text(encoding="utf-8")
     text = re.sub(r"```.*?```", "", text, flags=re.S)  # ignore code blocks
     for target in LINK.findall(text):
-        if re.match(r"^[a-z]+:", target) or target.startswith("#"):
+        if re.match(r"^[a-z]+:", target):
             continue
-        path = target.split("#", 1)[0]
-        if not path:
-            continue
-        assert (md.parent / path).exists(), f"{md.relative_to(ROOT)}: broken link {target}"
+        path, _, anchor = target.partition("#")
+        dest = md if not path else md.parent / path
+        assert dest.exists(), f"{md.relative_to(ROOT)}: broken link {target}"
+        if anchor and dest.suffix == ".md":
+            assert anchor in _slugs(dest), f"{md.relative_to(ROOT)}: no heading for #{anchor}"
 
 
 def test_slide_images_exist():

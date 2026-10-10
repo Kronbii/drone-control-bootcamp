@@ -20,7 +20,9 @@ it runs, you are set. If Jupyter cannot find `bootcamp`, the notebook is using a
 Python: `python -m ipykernel install --user --name bootcamp` (inside the venv) and pick
 the "bootcamp" kernel.
 
-## 2. rotorfault (session 6, parts of sessions 5 and 7)
+## 2. rotorfault
+
+Needed for session 6 and for parts of sessions 5 and 7.
 
 `rotorfault` is Rami Kronbi's rotor-fault simulation study, used here as a library. Install
 it from its repository:

@@ -15,7 +15,7 @@ Mostly simulation; the optional rig part is props-on ([safety rules](../../hardw
 
 ## Before the evening (30 min)
 
-Install `rotorfault` ([docs/setup.md](../../docs/setup.md#rotorfault)) and run
+Install `rotorfault` ([docs/setup.md](../../docs/setup.md#2-rotorfault)) and run
 `rotorfault simulate --traj hover --loe 1.0 --plot logs/loss.png` once. Skim the abstract
 and section 6 (limitations) of the rotorfault README.
 
