@@ -59,8 +59,11 @@ notebook-3 prediction for those gains.
    `zero` after every reset.
 2. Checklist. Arm (switch OFF→ON). The base throttle ramps up over 2 s; the loop starts
    with `kp 0.5 ki 0 kd 0.3`.
-3. Start the logger (`--seconds 25 logs/lab3_run1.csv`) and send `seq` (0, +10, -10, 0°, 4 s
-   each). Disarm.
+3. Start the logger (`logs/lab3_run1.csv`; this restarts the sketch, so arm *after* it is
+   running), arm, wait for the spin-up, and type `seq` into the logger (0, +10, -10, 0°,
+   4 s each). Disarm and stop the logger (Ctrl+C) after `# SEQ DONE`. Gain changes typed in
+   one logger session are lost when you restart the logger: note them, or put them in the
+   sketch.
 4. Plot the log in notebook 3 next to the simulated response for the same gains
    (`rig.simulate_rig` with your measured parameters). Where do they differ?
 5. Walk the gains up, one change per run, each about 25 %, logging every run: first `kd`,

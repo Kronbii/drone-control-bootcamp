@@ -11,7 +11,7 @@ written specification by the same notebook, and both end in the same kind of rep
 
 Tune a controller for the seesaw rig and pass the **acceptance test** that
 [`s07_capstone`](../../arduino/s07_capstone/s07_capstone.ino) runs when it receives `test`
-(33 s, fully automatic, logged with `tools/serial_logger.py --send test`):
+(33 s, fully automatic once started, logged with `tools/serial_logger.py`):
 
 | time (s) | what happens |
 |---|---|

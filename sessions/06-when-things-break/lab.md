@@ -55,7 +55,8 @@ The rig sketches have a fault-injection command: `fault 0.7` scales motor 2's th
 idle by 0.7 -- a software stand-in for a damaged propeller.
 
 1. Upload `s04_rig_cascaded` with your session-4 gains, `src pot`, arm, hold `sp 0`.
-2. Log 30 s; at about 10 s send `fault 0.7`; at about 25 s `fault off`.
+2. Start the logger (it restarts the sketch: re-arm), let the beam settle, then type
+   `fault 0.7` into the logger; about 15 s later `fault off`; stop the logger.
 3. Plot `u`: before the fault it hovers around 0; after it, the controller needs a steady
    negative differential to hold the beam level (more on the weak motor-2 side means
    *negative* `u`, since motor 2 = base − u). **That steady shift is a residual**: "what the

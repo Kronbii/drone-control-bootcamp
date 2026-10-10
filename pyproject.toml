@@ -25,7 +25,7 @@ serial = ["pyserial>=3.5"]
 # Session 6 needs rotorfault (Rami Kronbi's rotor-fault simulation study); see docs/setup.md
 # for the offline fallback (a wheel on a USB stick).
 faults = ["rotorfault @ git+https://github.com/Kronbii/rotor-fault-recovery"]
-dev = ["pytest>=7", "ruff>=0.4", "nbformat>=5.9", "nbclient>=0.9", "ipykernel>=6"]
+dev = ["pytest>=7", "ruff>=0.4", "nbformat>=5.9", "nbclient>=0.9", "ipykernel>=6", "pyserial>=3.5"]
 
 [tool.hatch.metadata]
 allow-direct-references = true

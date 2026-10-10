@@ -19,24 +19,29 @@ Your capacitors have tolerances, so your numbers will differ; the point is to me
 **Sketch:** `arduino/s02_rc_tuning`. Commands are listed at the top of the file; every
 row of output is `t_ms,sp,y,u,p,i,d,mode`. Log each part with
 `python tools/serial_logger.py --port <port> --seconds <s> logs/lab2_<part>.csv`
-(close the Serial Plotter first) and analyse in notebook 2 with `bootcamp.logs.read_log`.
+(close the Serial Plotter first) and **type the commands into the logger's terminal**.
+Starting the logger restarts the sketch (default gains, 0 V output), so start it before
+each part and give the plant time to settle. Analyse in notebook 2 with
+`bootcamp.logs.read_log`.
 
 **You hand in:** a table with your FOPDT fit, your relay $K_u$/$P_u$ (both runs), the gains of
 two rules, and one plot of the windup experiment.
 
 ## Part A · Open-loop step test and the reaction curve (12 min)
 
-1. `open`, `u 1`, wait ~20 s until A2 is steady at about 1 V.
-2. Start the logger for 40 s, then send `steptest 1 3 35` (2 s at 1 V, then 3 V for 35 s).
+1. Start the logger for 60 s (`--seconds 60`), type `open`, `u 1`, and wait ~20 s until A2
+   is steady at about 1 V.
+2. Type `steptest 1 3 35` (2 s at 1 V, then 3 V for 35 s).
 3. In the notebook: `fit_fopdt_two_point(t, y, du=2.0)` on the part after the step
    (subtract the step time), then `ziegler_nichols_open_loop(...)`.
 4. Try those gains: `kp ... ki ... kd ...`, `pid`, `sp 2.5`. Comment on the overshoot.
 
 ## Part B · Relay autotune with easyPID's PIDTuner (15 min)
 
-1. `pid`, `sp 2.5`, wait until steady (the relay is centred on the setpoint, and the
-   sketch passes the setpoint as easyPID's `outputBias`, because the plant's static gain is 1).
-2. Start the logger for 60 s, then `tune 2.0 0.005` (relay ±2 V, noise band 5 mV).
+1. Start the logger for 90 s; type `pid`, `sp 2.5` and wait until steady (the relay is
+   centred on the setpoint, and the sketch passes the setpoint as easyPID's `outputBias`,
+   because the plant's static gain is 1).
+2. Type `tune 2.0 0.005` (relay ±2 V, noise band 5 mV).
    The sketch runs the tuner **twice**: pass 1 lets the oscillation grow and settle, pass 2
    measures it (see notes §7 for why). It prints $K_u$, $P_u$ and the gains of the four rules.
 3. From the log, measure the period of the oscillation yourself (time between rising
@@ -49,7 +54,8 @@ two rules, and one plot of the windup experiment.
 ## Part C · Windup, on purpose (12 min)
 
 1. `kp 2`, `ki 1`, `kd 0`, `lim 0 3` (output limited to 3 V), `aw none`, `sp 2`.
-2. Log 40 s: `sp 4` (unreachable: the output saturates at 3 V), wait 15 s, then `sp 2`.
+2. With the logger running (40 s): `sp 4` (unreachable: the output saturates at 3 V),
+   wait 15 s, then `sp 2`.
    Watch `i` and how long `u` stays at 3 V after the setpoint drops.
 3. Repeat with `aw clamp` and with `aw backcalc` (send `pid` between runs to reset).
 4. Plot the three runs (`y` and `i`) on one figure.

@@ -15,7 +15,8 @@ single-loop run from session 3; (3) your cascade gains.
 
 1. Upload `s04_imu_check`. **Keep the beam still** during the 2 s gyro calibration after
    reset; note the printed `WHO_AM_I` and gyro bias.
-2. **A1, motors off.** Start the logger (`--seconds 30 logs/lab4_off.csv`) and move the beam
+2. **A1, motors off.** Start the logger (`--seconds 30 logs/lab4_off.csv`; it restarts the
+   sketch, so keep the beam still for the 2 s gyro calibration) and move the beam
    slowly by hand, then quickly, then hold it at about +15° and -15°.
    - Do `pot`, `acc`, `gyro_int` and `comp` agree in sign? (If not: fix the mounting or
      `BEAM_GYRO_SIGN`, see [build.md](../../hardware/rig/build.md) §4.)

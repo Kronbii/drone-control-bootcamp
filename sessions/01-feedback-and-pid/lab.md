@@ -57,7 +57,9 @@ notebook.
    ```bash
    python tools/serial_logger.py --port /dev/ttyUSB0 --seconds 40 logs/lab1_pi.csv
    ```
-   (Windows: `--port COM5`; macOS: `/dev/cu.usbserial-...`.) Load it in the notebook with
+   (Windows: `--port COM5`; macOS: `/dev/cu.usbserial-...`.) Opening the port restarts the
+   sketch with its default gains, so type `kp 2`, `ki 1` and `steps 1.5 3.5 8` into the
+   logger's terminal once it is running. Load the log in the notebook with
    `bootcamp.logs.read_log("logs/lab1_pi.csv")` and plot `y` against the prediction of
    notebook section 6. If you have no logger, a screenshot of the Serial Plotter will do.
 6. **Try `kp 4 ki 3`.** Overshoot appears. Why does the first part of the rise look like

@@ -61,11 +61,15 @@ All sketches print at **115200 baud**.
 ## 4. Logging serial data
 
 ```bash
-python tools/serial_logger.py --port /dev/ttyUSB0 --seconds 30 logs/run1.csv
-python tools/serial_logger.py --port COM5 --send seq logs/step.csv     # send a command first
+python tools/serial_logger.py --port /dev/ttyUSB0 logs/run1.csv           # until Ctrl+C
+python tools/serial_logger.py --port COM5 --seconds 30 logs/run2.csv
 ```
 
-Close the Serial Monitor/Plotter first (one program per port). Read a log in a notebook
+While it logs, **type commands into the logger's terminal** (`seq`, `kick`, `kp 2`, ...):
+they are sent to the board as from the Serial Monitor. Opening the port **resets** most
+Arduino boards: the sketch restarts with the values written in it, and a rig is disarmed.
+Start the logger first, then arm and type your command; keep calibrations (`potCenter`) and
+final gains in the sketch itself. Close the Serial Monitor/Plotter first (one program per port). Read a log in a notebook
 with `bootcamp.logs.read_log("logs/run1.csv")`. The `logs/` folder is ignored by git.
 
 ## 5. For instructors and contributors
