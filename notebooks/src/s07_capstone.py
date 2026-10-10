@@ -236,7 +236,8 @@ course_ref = quad.waypoints(cp.COURSE, cp.COURSE_DWELL)
 T_course = len(cp.COURSE) * cp.COURSE_DWELL
 
 
-def fly_course(allocate_fn, oracle_delay=0.05):
+def fly_course(allocate_fn, oracle_delay=0.05, gyro_noise=0.0, seed=0):
+    """Fly the Track S course; for scoring use gyro_noise=0.03 and seeds 0-4 (test-day protocol)."""
     ctrl = FaultAwareCascade(allocate_fn)
 
     def eta_schedule(t_):
@@ -244,7 +245,9 @@ def fly_course(allocate_fn, oracle_delay=0.05):
             ctrl.eta_hat = cp.course_eta(t_)  # oracle: replace with your detector + estimator
         return cp.course_eta(t_)
 
-    return quad.simulate_quad(ctrl, course_ref, T_course, eta_schedule=eta_schedule)
+    return quad.simulate_quad(
+        ctrl, course_ref, T_course, eta_schedule=eta_schedule, gyro_noise=gyro_noise, seed=seed
+    )
 
 
 # %% [exercise 7.5]
@@ -319,7 +322,7 @@ save(fig, "s07_course")
 # %% [markdown]
 # ## 5. Your report
 #
-# Two pages, using `sessions/07-capstone/report-template.md`. It must contain:
+# Two pages, using `sessions/07-capstone/writeup-template.md`. It must contain:
 #
 # 1. the spec table above for **your** log, with every FAIL explained;
 # 2. the acceptance-test plot, and one plot you chose because it shows something the
