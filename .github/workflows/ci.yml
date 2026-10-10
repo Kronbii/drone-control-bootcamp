@@ -1,0 +1,85 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.12"
+  EASYPID_VERSION: "1.1.0"
+  # rotorfault is installed from its repository (session 6 and parts of 5 and 7 need it).
+  ROTORFAULT_SPEC: "rotorfault @ git+https://github.com/Kronbii/rotor-fault-recovery@main"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: pip install "ruff>=0.4"
+      - run: ruff check .
+      - run: ruff format --check .
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - name: Install the course package and rotorfault
+        run: |
+          pip install -e ".[dev]"
+          pip install "$ROTORFAULT_SPEC"
+      - name: easyPID C++ sources for the port cross-check
+        run: git clone --depth 1 --branch "$EASYPID_VERSION" https://github.com/Kronbii/easyPID.git "$RUNNER_TEMP/easyPID"
+      - name: Generated files are current
+        run: |
+          python tools/build_notebooks.py --check
+          python tools/sync_sketch_headers.py --check
+          python tools/kit_cost.py --check
+      - name: Unit, model, sketch-source and docs tests (C++ cross-check included)
+        env:
+          EASYPID_SRC: ${{ runner.temp }}/easyPID/src
+        run: pytest -m "not notebooks" -rs
+
+  notebooks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - name: Install
+        run: |
+          pip install -e ".[dev]"
+          pip install "$ROTORFAULT_SPEC"
+      - name: Execute every notebook (solutions pass all checks, students fail only at the TODOs)
+        env:
+          MPLBACKEND: Agg
+        run: pytest -m notebooks -rs
+
+  arduino:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - uses: arduino/setup-arduino-cli@v2
+      - name: AVR core and easyPID from the Library Manager
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr
+          arduino-cli lib install "easyPID@$EASYPID_VERSION"
+      - name: Compile all sketches for Uno and Nano (warnings fail the build)
+        run: python tools/compile_sketches.py --fqbn arduino:avr:uno --fqbn arduino:avr:nano

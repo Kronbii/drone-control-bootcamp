@@ -13,8 +13,11 @@ Use `bootcamp.fault.run_case` (one closed-loop simulation, about 1-2 s of comput
 
 ```python
 from bootcamp import fault
-res, summary = fault.run_case(loe=0.6, rotor=2, baseline="estimated", duration=5.0, onset=2.0, seed=0)
-print(summary)   # lost?, detection delay, isolated rotor, max deviation, switch to relaxed, spin
+
+res, summary = fault.run_case(
+    loe=0.6, rotor=2, baseline="estimated", duration=5.0, onset=2.0, seed=0
+)
+print(summary)  # lost?, detection delay, isolated rotor, max deviation, switch to relaxed, spin
 ```
 
 **A1. Loss sweep.** For LOE = 0.2, 0.4, 0.6, 0.8, 1.0 on rotor 2, run `passive` and `estimated`
@@ -36,6 +39,7 @@ does it *not* tell you?
 from rotorfault.fdi import FDIConfig
 from rotorfault.scenarios import make_scenario
 from rotorfault.sim import simulate
+
 for k in (1.0, 2.4, 3.2):
     sc = make_scenario("hover", 5.0, rotor=0, magnitude=1.0, onset=2.0, true_scale={"tau_motor": k})
     r = simulate(sc, "estimated", 3, FDIConfig())

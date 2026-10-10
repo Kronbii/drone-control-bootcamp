@@ -10,9 +10,10 @@ which loop or assumption it broke*.
 ```python
 import numpy as np
 from bootcamp import quad
-ctrl = quad.CascadedController()                       # nominal gains and model
+
+ctrl = quad.CascadedController()  # nominal gains and model
 ref = quad.waypoints([(0, 0, 1), (2, 0, 1), (2, 2, 1.5), (0, 0, 1)], dwell=4.0)
-log = quad.simulate_quad(ctrl, ref, 16.0)              # 500 Hz control, RK4 physics
+log = quad.simulate_quad(ctrl, ref, 16.0)  # 500 Hz control, RK4 physics
 ```
 
 Create a **new** `CascadedController` for every run (it holds integrator state).
