@@ -1,0 +1,136 @@
+/*
+ * @theme vneo
+ * Slide theme for the drone-control bootcamp: dark surface, sage accent.
+ * Fonts load from Google Fonts when online; system fonts are the fallback.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Spline+Sans+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #0b0d0c;
+  --surface: #121614;
+  --raised: #191e1b;
+  --ink: #eef1ec;
+  --ink-2: rgba(238, 241, 236, 0.74);
+  --ink-3: rgba(238, 241, 236, 0.52);
+  --hair: rgba(238, 241, 236, 0.12);
+  --sage: #b7d3a8;
+  --magenta: #e08fd0;
+  --green: #a6e68f;
+}
+
+section {
+  width: 1280px;
+  height: 720px;
+  padding: 56px 72px;
+  background: var(--bg);
+  color: var(--ink-2);
+  font-family: 'Bricolage Grotesque', 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 26px;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+h1, h2, h3 {
+  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  margin: 0 0 0.45em 0;
+}
+h1 { font-size: 56px; }
+h2 { font-size: 40px; }
+h3 { font-size: 30px; color: var(--sage); }
+
+strong { color: var(--ink); font-weight: 600; }
+em { color: var(--sage); font-style: normal; }
+a { color: var(--sage); text-decoration: none; border-bottom: 1px solid var(--hair); }
+
+ul, ol { padding-left: 1.1em; }
+li { margin: 0.18em 0; }
+li::marker { color: var(--sage); }
+
+code {
+  font-family: 'Spline Sans Mono', 'JetBrains Mono', 'DejaVu Sans Mono', monospace;
+  background: var(--raised);
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 0.05em 0.35em;
+  font-size: 0.85em;
+}
+pre {
+  background: var(--surface);
+  border: 1px solid var(--hair);
+  border-radius: 14px;
+  padding: 18px 22px;
+  font-size: 20px;
+  line-height: 1.4;
+}
+pre code { background: none; padding: 0; }
+
+table {
+  border-collapse: collapse;
+  font-size: 22px;
+  margin: 0.3em 0;
+}
+th, td { border-bottom: 1px solid var(--hair); padding: 6px 14px; text-align: left; }
+th { color: var(--ink); font-weight: 600; }
+
+blockquote {
+  margin: 0.4em 0;
+  padding: 14px 22px;
+  background: var(--surface);
+  border-left: 3px solid var(--sage);
+  border-radius: 0 12px 12px 0;
+  color: var(--ink);
+}
+
+img { border-radius: 10px; }
+
+/* small uppercase label above a title: <p class="slate">SC 03 · the rig</p> */
+.slate, header {
+  font-family: 'Spline Sans Mono', 'DejaVu Sans Mono', monospace;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sage);
+}
+header { position: absolute; top: 26px; left: 72px; }
+footer {
+  position: absolute;
+  font-family: 'Spline Sans Mono', 'DejaVu Sans Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  left: 72px;
+  bottom: 22px;
+}
+section::after {
+  position: absolute;
+  font-family: 'Spline Sans Mono', 'DejaVu Sans Mono', monospace;
+  font-size: 13px;
+  color: var(--ink-3);
+  right: 40px;
+  bottom: 22px;
+}
+
+/* title slide */
+section.title {
+  justify-content: center;
+  background: radial-gradient(1200px 600px at 85% 110%, rgba(183, 211, 168, 0.10), transparent 60%), var(--bg);
+}
+section.title h1 { font-size: 64px; max-width: 980px; }
+section.title p { color: var(--ink-2); max-width: 900px; }
+
+/* big-number row: <div class="figures"><div><b>7</b>sessions</div>...</div> */
+.figures { display: flex; gap: 48px; margin-top: 18px; }
+.figures div { border-top: 1px solid var(--hair); padding-top: 10px; color: var(--ink-3); font-size: 20px; }
+.figures b { display: block; color: var(--sage); font-size: 54px; font-weight: 700; letter-spacing: -0.03em; }
+
+/* two columns */
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+
+section.safety h2 { color: var(--magenta); }
