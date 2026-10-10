@@ -53,11 +53,12 @@ two rules, and one plot of the windup experiment.
 
 ## Part C · Windup, on purpose (12 min)
 
-1. `kp 2`, `ki 1`, `kd 0`, `lim 0 3` (output limited to 3 V), `aw none`, `sp 2`.
-2. With the logger running (40 s): `sp 4` (unreachable: the output saturates at 3 V),
-   wait 15 s, then `sp 2`.
+1. Start the logger (no time limit) and type `kp 2`, `ki 1`, `kd 0`, `lim 0 3` (output
+   limited to 3 V), `aw none`, `pid`, `sp 2`; wait about 15 s until steady.
+2. Type `sp 4` (unreachable: the output saturates at 3 V), wait 15 s, then `sp 2`.
    Watch `i` and how long `u` stays at 3 V after the setpoint drops.
-3. Repeat with `aw clamp` and with `aw backcalc` (send `pid` between runs to reset).
+3. In the same logger session, repeat with `aw clamp` and with `aw backcalc` (type `pid`
+   between runs to reset the controller); note the time of each run for the plot.
 4. Plot the three runs (`y` and `i`) on one figure.
 
 ## Part D · Sample time and derivative noise (if time allows)

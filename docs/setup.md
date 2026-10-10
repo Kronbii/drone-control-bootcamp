@@ -69,8 +69,9 @@ While it logs, **type commands into the logger's terminal** (`seq`, `kick`, `kp 
 they are sent to the board as from the Serial Monitor. Opening the port **resets** most
 Arduino boards: the sketch restarts with the values written in it, and a rig is disarmed.
 Start the logger first, then arm and type your command; keep calibrations (`potCenter`) and
-final gains in the sketch itself. Close the Serial Monitor/Plotter first (one program per port). Read a log in a notebook
-with `bootcamp.logs.read_log("logs/run1.csv")`. The `logs/` folder is ignored by git.
+final gains in the sketch itself. Close the Serial Monitor/Plotter first (one program per
+port). Read a log in a notebook with `bootcamp.logs.read_log("logs/run1.csv")`. The `logs/`
+folder is ignored by git.
 
 ## 5. For instructors and contributors
 
