@@ -19,6 +19,7 @@ Prices, the shared items and cohort totals are in
 | 1 | IMU | MPU-6050 on a GY-521 board | 5 V tolerant (has a regulator); I²C on A4/A5. |
 | 1 | Potentiometer | 10 kΩ linear (B10K), 6 mm shaft, M7 bushing | A smooth, single-turn carbon pot is fine; avoid detented pots. |
 | 1 | Arm switch | SPST toggle | D2 to GND. |
+| 1 | Pull-down resistor | 1 MΩ, A0 to GND | Makes a loose pot wiper read 0 (caught by the arming checks). |
 | - | Wires, header, heat-shrink | | |
 
 ## Mechanics

@@ -29,7 +29,7 @@ totals always add up; edit the CSV, not the tables.
 | Arduino Nano compatible | ATmega328P, CH340 USB; an Uno clone also works | 1 | 4-7 | one per team; students may bring their own |
 | USB cable | matching the board | 1 | 1-2 | often included with the board |
 | Breadboard and jumper wires | 830 points + 40 male-male wires | 1 | 3-5 |  |
-| RC plant parts | 3 x 10 kOhm resistor, 3 x 100 uF 16 V electrolytic | 1 | 0.5-1.5 | labs 1-2 |
+| RC plant parts | 3 x 10 kOhm resistor, 3 x 100 uF 16 V electrolytic, 1 MOhm pull-down for the rig pot | 1 | 0.5-1.5 | labs 1-2 (and the rig) |
 | Brushless motor | A2212 1000 KV outrunner (2212 920-1000 KV equivalents fine) | 2 | 12-20 | the common 'F450 kit' motor |
 | ESC | 30 A, standard PWM input (BLHeli or SimonK firmware) | 2 | 12-20 | BEC output not used |
 | Propeller pair | 10x4.5 (1045), one CW + one CCW | 2 | 3-6 | one pair fitted + one spare pair |

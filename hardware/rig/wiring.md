@@ -33,6 +33,7 @@ flowchart LR
   (ESC red 5 V BEC wire: NOT connected -- tape it back)
 
   A0 --------------- pot wiper (middle pin)         pot ends to 5V and GND
+  A0 --[1 MOhm]----- GND                            pull-down: a loose wiper reads 0
   5V --------------- pot end 1, GY-521 VCC
   GND -------------- pot end 2, GY-521 GND, arm switch
   A4 (SDA) --------- GY-521 SDA
@@ -54,6 +55,10 @@ Pin assignments are in `arduino/common/rig_safety.h` (pins, limits, arming rules
   the first thing to check (`s04_imu_check` prints `IMU NOT FOUND` at boot; the cascaded
   sketches disarm when a read fails).
 - The pot cable runs along an upright, not along the beam.
+- The 1 MΩ pull-down on A0 makes a disconnected wiper read 0 instead of floating, so the
+  plausibility check (10-1013 counts) catches it; a loose end wire drives the reading to a
+  rail and is caught the same way. The pull-down shifts the reading by about one count
+  near the centre, which `zero` removes.
 
 ## Before the first power-up
 
