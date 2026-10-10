@@ -13,6 +13,7 @@
 //   kp 0.5 ki 0 kd 0.3     gains                   sp 10       setpoint (deg)
 //   filter 0.6 | off       derivative EMA filter    base 1350   base throttle (us)
 //   seq                    step test: 0, +10, -10, 0 deg, 4 s each (for the logger)
+//   kick                   disturbance: +40 us on u for 100 ms (same as the capstone test)
 //   fault 0.7 | fault off  scale motor 2's throttle above idle (fault-injection, lab 6)
 //   zero                   record the current pot reading as level
 //   x                      disarm now          ?   settings
@@ -45,6 +46,8 @@ bool seqActive = false;
 unsigned long seqStart = 0;
 unsigned long lastLoop = 0;
 uint8_t logDivider = 0;
+unsigned long kickUntil = 0;  // "kick": +40 us on u for 100 ms, a repeatable disturbance
+const float KICK_US = 40.0f;
 bool wasRamping = true;
 
 float potAngle(int counts) { return (counts - potCenter) * POT_DEG_PER_COUNT * potSign; }
@@ -81,6 +84,8 @@ void handleCommand(bool& stop) {
   } else if (cmd.is("seq")) {
     seqActive = true;
     seqStart = millis();
+  } else if (cmd.is("kick")) {
+    kickUntil = millis() + 100;
   } else if (cmd.is("fault")) {
     faultEta = (strcmp(cmd.s(0), "off") == 0) ? 1.0f : constrain(cmd.f(0, 1.0f), 0.3f, 1.0f);
   } else if (cmd.is("zero")) {
@@ -143,6 +148,7 @@ void loop() {
         wasRamping = false;
       }
       u = pid.update(setpoint, angle, dtMs);
+      if ((long)(kickUntil - now) > 0) u += KICK_US;
       mixDifferential(baseUs, u, US_LO, US_HI, m1, m2);
       // fault injection: motor 2 delivers only a fraction of its throttle above idle
       m2 = US_IDLE + faultEta * (m2 - US_IDLE);

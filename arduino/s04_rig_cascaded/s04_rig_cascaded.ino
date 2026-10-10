@@ -12,6 +12,7 @@
 //   src pot | src imu        angle source       tau 0.5   complementary-filter tau (s)
 //   sp 10 | seq              setpoint (deg) or the 0/+10/-10/0 step test
 //   rmax 150                 rate-setpoint limit (deg/s)
+//   kick                     disturbance: +40 us on u for 100 ms (same as the capstone test)
 //   fault 0.7 | fault off    motor-2 throttle scaling (fault injection, lab 6)
 //   base 1350 | zero | x | ? base throttle, level calibration, disarm, settings
 // Output (50 Hz): t_ms,sp,pot,est,rate_sp,rate,u,us1,us2,armed
@@ -43,6 +44,8 @@ SerialCommands cmd;
 bool seqActive = false, wasRamping = true;
 unsigned long seqStart = 0, lastLoop = 0;
 uint8_t logDivider = 0;
+unsigned long kickUntil = 0;  // "kick": +40 us on u for 100 ms, a repeatable disturbance
+const float KICK_US = 40.0f;
 
 float potAngle(int counts) { return (counts - potCenter) * POT_DEG_PER_COUNT * potSign; }
 
@@ -80,6 +83,8 @@ void handleCommand(bool& stop) {
   } else if (cmd.is("seq")) {
     seqActive = true;
     seqStart = millis();
+  } else if (cmd.is("kick")) {
+    kickUntil = millis() + 100;
   } else if (cmd.is("rmax")) {
     rateLimit = constrain(cmd.f(0, rateLimit), 20.0f, 400.0f);
     anglePid.setOutputLimits(-rateLimit, rateLimit);
@@ -153,6 +158,7 @@ void loop() {
       }
       rateSp = anglePid.update(setpoint, est, dtMs);
       u = ratePid.update(rateSp, imu.rate(), dtMs);
+      if ((long)(kickUntil - now) > 0) u += KICK_US;
       mixDifferential(baseUs, u, US_IDLE, US_CAP, m1, m2);
       m2 = US_IDLE + faultEta * (m2 - US_IDLE);
     }
