@@ -75,6 +75,12 @@ def _execute(nb: dict, allow_errors: bool):
     return node
 
 
+def _skip_without_rotorfault(src):
+    """Sessions 4-7 use the rotorfault simulator; skip them, visibly, where it is not installed."""
+    if "rotorfault" in src.read_text() and importlib.util.find_spec("rotorfault") is None:
+        pytest.skip("rotorfault not installed (see docs/setup.md)")
+
+
 def _errors(node):
     out = []
     for i, c in enumerate(node.cells):
@@ -89,6 +95,7 @@ def _errors(node):
 @pytest.mark.notebooks
 @pytest.mark.parametrize("src", SOURCES, ids=IDS)
 def test_solution_notebook_passes_every_check(src):
+    _skip_without_rotorfault(src)
     node = _execute(build_notebooks.build(src, student=False), allow_errors=False)
     passes = sum("[PASS]" in o.get("text", "") for c in node.cells for o in c.get("outputs", []))
     n_check = sum(1 for c in node.cells if "check" in c.metadata.get("tags", []))
@@ -98,6 +105,7 @@ def test_solution_notebook_passes_every_check(src):
 @pytest.mark.notebooks
 @pytest.mark.parametrize("src", SOURCES, ids=IDS)
 def test_student_notebook_fails_only_at_the_todos(src):
+    _skip_without_rotorfault(src)
     node = _execute(build_notebooks.build(src, student=True), allow_errors=True)
     errs = _errors(node)
     failing = {i for i, _, _ in errs}

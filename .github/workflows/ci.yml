@@ -37,9 +37,11 @@ jobs:
           cache: pip
           cache-dependency-path: pyproject.toml
       - name: Install the course package and rotorfault
+        env:
+          GIT_TERMINAL_PROMPT: "0"
         run: |
           pip install -e ".[dev]"
-          pip install "$ROTORFAULT_SPEC"
+          pip install "$ROTORFAULT_SPEC" || echo "::warning::rotorfault could not be installed (its repository may still be private); the tests and notebooks that need it are skipped"
       - name: easyPID C++ sources for the port cross-check
         run: git clone --depth 1 --branch "$EASYPID_VERSION" https://github.com/Kronbii/easyPID.git "$RUNNER_TEMP/easyPID"
       - name: Generated files are current
@@ -62,9 +64,11 @@ jobs:
           cache: pip
           cache-dependency-path: pyproject.toml
       - name: Install
+        env:
+          GIT_TERMINAL_PROMPT: "0"
         run: |
           pip install -e ".[dev]"
-          pip install "$ROTORFAULT_SPEC"
+          pip install "$ROTORFAULT_SPEC" || echo "::warning::rotorfault could not be installed (its repository may still be private); the notebooks that need it are skipped"
       - name: Execute every notebook (solutions pass all checks, students fail only at the TODOs)
         env:
           MPLBACKEND: Agg

@@ -128,6 +128,10 @@ GitHub Actions ([`ci.yml`](.github/workflows/ci.yml)) runs four jobs:
 - **arduino**: all 8 sketches compiled for Uno and Nano with `arduino-cli`, warnings
   treated as failures.
 
+While the rotorfault repository is private, CI cannot install it: the tests and the four
+notebooks (sessions 4-7) that need it are skipped with a warning, and run in full once it is
+public. Locally, with rotorfault installed, everything runs.
+
 ## Built on two projects
 
 - **easyPID** (Arduino library, v1.1.0): every sketch uses its exact API; notebook 1 has
