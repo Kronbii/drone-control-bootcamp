@@ -1,0 +1,31 @@
+id,scope,item,spec,qty,unit_low_usd,unit_high_usd,source,notes
+board,team,Arduino Nano compatible,"ATmega328P, CH340 USB; an Uno clone also works",1,4,7,online marketplace or local electronics shop,one per team; students may bring their own
+usb,team,USB cable,matching the board,1,1,2,online or local,often included with the board
+breadboard,team,Breadboard and jumper wires,830 points + 40 male-male wires,1,3,5,online or local,
+rc_parts,team,RC plant parts,"3 x 10 kOhm resistor, 3 x 100 uF 16 V electrolytic",1,0.5,1.5,local electronics shop,labs 1-2
+motor,team,Brushless motor,"A2212 1000 KV outrunner (2212 920-1000 KV equivalents fine)",2,6,10,online marketplace,the common 'F450 kit' motor
+esc,team,ESC,"30 A, standard PWM input (BLHeli or SimonK firmware)",2,6,10,online marketplace,BEC output not used
+props,team,Propeller pair,"10x4.5 (1045), one CW + one CCW",2,1.5,3,online marketplace,one pair fitted + one spare pair
+psu,team,Power supply,"12 V 10 A enclosed switching supply, mains cable",1,12,20,online or local,"replaces a LiPo: no battery fire risk, current-limited"
+estop,team,Emergency-stop switch,"latching mushroom, >= 10 A, in the 12 V line",1,4,8,online or local,mandatory
+fuse,team,Fuse holder and fuses,inline blade holder + 15 A fuses,1,1,2,local,
+wire,team,Power wiring,"14 AWG silicone wire red/black 1 m each, XT60 pair, ring terminals",1,4,6,online or local,
+imu,team,IMU module,MPU-6050 on a GY-521 board,1,1.5,3,online marketplace,session 4
+pot,team,Potentiometer,"10 kOhm linear (B10K), 6 mm shaft",1,0.5,1,local,pivot angle sensor
+arm_switch,team,Arm switch,toggle switch + leads,1,0.5,1,local,
+beam,team,Beam,"20 x 20 x 1.5 mm aluminium square tube, 0.6 m",1,3,6,local hardware store,pine 20 x 20 mm also works
+axle,team,Axle hardware,"M8 threaded rod 150 mm, 6 nuts, washers",1,1,2,local hardware store,
+bearings,team,Bearings,608 (8 x 22 x 7 mm),2,0.4,1,online or local,skateboard bearings
+wood,team,Plywood,"18 mm: base 400 x 250 mm, two uprights 320 x 80 mm",1,5,10,local carpentry offcuts,
+fasteners,team,Fasteners,"M3 bolts and nuts, wood screws (share of an assortment)",1,2,4,local hardware store,
+printing,team,3D-printing filament,"PETG/PLA, about 350 g (blocks, coupler, brackets, mounts, 8 guard segments)",1,6,9,Space² printers,at 17-25 USD per kg
+cage,team,Safety cage,"12 mm welded mesh about 2 m2, 25 x 25 mm timber strips 8 m, staples (900 x 450 x 600 mm)",1,14,25,local hardware store,props-on work happens inside it
+clamps,team,G-clamps,two 100 mm clamps,2,2.5,4,local hardware store,skip if the space has them
+glasses,shared,Safety glasses,one per student and instructor,20,1.5,3,online or local,mandatory when props are on
+scale,shared,Kitchen scale,"1 g resolution, >= 3 kg",2,8,12,local,thrust curves in lab 3
+spare_motor,shared,Spare motor,as above,2,6,10,online marketplace,
+spare_esc,shared,Spare ESC,as above,2,6,10,online marketplace,
+spare_props,shared,Spare propeller pairs,as above,6,1.5,3,online marketplace,props break
+multimeter,shared,Multimeter,basic digital,2,8,15,local,skip if the space has them
+first_aid,shared,First-aid kit,with dressings for cuts,1,10,20,local pharmacy,
+extinguisher,shared,Fire extinguisher,CO2 or ABC powder,1,20,35,local,skip if the space has one
