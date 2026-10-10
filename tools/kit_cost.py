@@ -93,7 +93,7 @@ def row(r: dict) -> str:
 
 
 def total_row(label: str, pair: tuple[float, float], bold: bool = False) -> str:
-    lo, hi = f"{pair[0]:,.0f}", f"{pair[1]:,.0f}"
+    lo, hi = _fmt(pair[0]), _fmt(pair[1])
     if bold:
         label, lo, hi = f"**{label}**", f"**{lo}**", f"**{hi}**"
     return f"| {label} | {lo} | {hi} |"

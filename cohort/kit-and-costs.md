@@ -66,7 +66,7 @@ totals always add up; edit the CSV, not the tables.
 
 | | low | high |
 |---|---|---|
-| bench kit per team (labs 1-2) | 8 | 16 |
+| bench kit per team (labs 1-2) | 8.5 | 16 |
 | rig per team (labs 3-7) | 87 | 153 |
 | **one team, total** | **96** | **168** |
 | shared items per cohort | 125 | 227 |
